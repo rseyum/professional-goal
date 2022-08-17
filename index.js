@@ -11,7 +11,7 @@ app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
   var title = "Welcome to my Page!"
-  var heading = "Rahel Seyum Year Up student and Front-end development passioate "
+  var heading = "Rahel Seyum Year Up student!"
   res.render('pages/index',{
     'title':title,
     'heading':heading
