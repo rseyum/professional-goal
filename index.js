@@ -2,11 +2,14 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.set('view engine','ejs')
+var data = require('./data/test.json');
 
+app.set('view engine','ejs')
 
 //this will allow us to serve up static files, CSS, images & JS
 app.use(express.static(__dirname));
+app.use("/img", express.static(__dirname))
+
 
 
 app.get('/', (req, res) => {
@@ -16,7 +19,8 @@ app.get('/', (req, res) => {
     'title':title,
     'heading':heading
   })
-})
+});
+
 app.get('/Skills', (req, res) => {
   var title = "My front-end Skills!"
   var heading = 'My Website'
@@ -24,7 +28,7 @@ app.get('/Skills', (req, res) => {
     'title':title,
     'heading':heading
   })
-})
+});
 
 app.get('/Education', (req, res) => {
   var title = "Year Up Application Dev!"
@@ -33,7 +37,8 @@ app.get('/Education', (req, res) => {
     'title':title,
     'heading':heading
   })
-})
+});
+
 app.get('/Hobbies', (req, res) => {
   var title = "My Hobbies!"
   var heading = 'Top Hobbies'
@@ -41,15 +46,20 @@ app.get('/Hobbies', (req, res) => {
     'title':title,
     'heading':heading
   })
-})
-app.get('/work-experience', (req, res) => {
-  var title = "My work Experience!"
-  var heading = 'Work history'
-  res.render('pages/work-experience',{
-    'title':title,
-    'heading':heading
-  })
-})
+});
+
+app.get('/users/view/:id', function(req, res) {
+ var title = 'User Page';
+ var id = req.params.id;
+ var heading = "My website"
+ res.render('users/view', {
+     title: title,
+     heading:heading,
+     user: data[--id]
+ });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
+  console.log(data);
 })
